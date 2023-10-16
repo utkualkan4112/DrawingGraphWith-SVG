@@ -1,0 +1,20 @@
+.target{
+    fill: yellow;
+}
+
+.yearFont{
+    font: bold 9px sans-serif;
+}
+
+.countFont{
+    font: bold 11px sans-serif;
+}
+
+.limitFont{
+    font: bold 15px sans-serif;
+}
+
+.viewboxcontainer {
+    border: 10px blueviolet solid;
+    background-color: darksalmon;
+}

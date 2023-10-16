@@ -1,0 +1,90 @@
+<head>
+    <title>TEST</title>
+    <link rel="stylesheet" type="text/css" href="A1.css">
+</head>
+
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" class = "viewboxcontainer" >
+        <rect width="100%" height="100%" fill="#FFFFFF" />
+    </svg>
+    <script>
+        // targeting the svg itself
+        const svg = document.querySelector("svg");
+        // variable for the namespace 
+        const svgns = "http://www.w3.org/2000/svg";
+
+        const Data = ["2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",
+                      "2898, 2933, 2677, 3287, 3252, 3169, 3246, 3193, 3168, 3342, 3476, 3710, 4194, 4146"];
+        var Years = Data[0].split(',');
+        var Counts = Data[1].split(',');
+        const MaxValue = 5000;
+        const Space = 30;
+        var PerSpacing = 150;
+        for(var i = 0; i < Years.length; i++){
+            MakeRect(PerSpacing, 300, 20, (parseInt(Counts[i]*200)) / 5000, "#5cceee", 180);
+            makeText(PerSpacing - 10, 320, Years[i], 0, "yearFont");
+            makeText(PerSpacing - 10, 280, Counts[i], 270, "countFont");
+            if(i < Years.length - 1) {
+            DrawLine(PerSpacing + 5, 300, PerSpacing + 5, 305, "black");
+            }
+            PerSpacing += Space;
+        }
+        var Origin = 115;
+        DrawLine(Origin, 300, PerSpacing - 15, 300, "black");
+        DrawLine(Origin, 300, Origin, 100, "black");
+        var current = 300;
+        for(var i = 1000; i <= 5000; i+= 1000){
+            DrawLine(Origin, current - (200/5), Origin - 5, current - (200/5), "black");
+            makeText(Origin - 25, current - (200/5), i, 0, "limitFont");
+            current -= (200/5);
+        }
+        makeText(Origin, current - 15, "(Ölüm sayısı)", 0, "yearFont");
+        makeText(Origin + 35, current - 35, "Türkiye Geneli İntahar oranları, 2009-2022",0,"limitFont");
+        MakeRect(Origin + ((PerSpacing- Space - 15 - Origin)/2), 340, 20, 10, "#5cceee", 0);
+        makeText(Origin + ((PerSpacing- Space - 15 - Origin)/2) + 50, 345, "Ölüm sayısı", 0, "yearFont");
+
+
+
+        function MakeRect(x, y, width, height, color, rotation) {
+
+            // make a simple rectangle
+            let newRect = document.createElementNS(svgns, "rect");
+
+            // set attributes of new rectangle
+            newRect.setAttribute("x", x);
+            newRect.setAttribute("y", y);
+            newRect.setAttribute("width", width);
+            newRect.setAttribute("height", height);
+            newRect.setAttribute("fill", color);
+            newRect.setAttribute("transform", "rotate(" + rotation + ", " + x + ", " + y +")");
+
+            // append the new rectangle to the svg
+            svg.appendChild(newRect);
+        }
+
+        function DrawLine(StartX, StartY, EndX, EndY, color) {
+            let newLine = document.createElementNS(svgns, "line");
+            newLine.setAttribute("x1", StartX);
+            newLine.setAttribute("x2", EndX);
+            newLine.setAttribute("y1", StartY);
+            newLine.setAttribute("y2", EndY);
+            newLine.setAttribute("stroke", color);
+            svg.appendChild(newLine);
+        }
+
+        function makeText(X, Y, content, rotateAmount, font) {
+            let txt = document.createElementNS(svgns, "text");
+            
+            txt.textContent = content;
+            txt.setAttribute("x", X);
+            txt.setAttribute("y", Y);
+            txt.setAttribute("class", font);
+            txt.setAttribute("text-anchor","middle");
+            txt.setAttribute("dominant-baseline", "central");
+            txt.setAttribute("transform", "rotate(" + rotateAmount + ", "+ X + ", " + Y + ")");
+            svg.appendChild(txt);
+
+        }
+
+    </script>
+</body>
